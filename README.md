@@ -17,7 +17,7 @@ Please contact me if you have any comments about the code. I am a beginner.
 ```{r}
 library(devtools)
 install_github("christianbromley/garmintrackR")
-
+library(garmintrackR)
 ```
 
 ## How to use garmintrackR
@@ -26,16 +26,16 @@ install_github("christianbromley/garmintrackR")
 Log into Garmin connect, click on __Activities__ and hit __All Activities__. Scroll down to the bottom of the page, and then hit __Export CSV__ in the top right.
 
 ### Read in your garmin data, and prepare it for analysis
-```{r}
-setwd("~/Downloads")
-garmin <- read.csv("Activities.csv", header=T)
 
+```{r, warning=FALSE}
+#setwd("~/Downloads")
+#garmin <- read.csv("Activities.csv", header=T)
 ```
 
 Now we will use our first garmintrackR function. This function will tidy some of the variables, and ditch some unimportant ones.
+
 ```{r, warning=FALSE, error=FALSE, message=FALSE}
 my_runs <- processGarminRunning(data=garmin)
-
 ```
 
 ### Overiew of all runs
@@ -43,6 +43,7 @@ my_runs <- processGarminRunning(data=garmin)
 Let's take an overview of some of my runs.
 
 What distances do I most frequently run?
+
 ```{r, warning=FALSE}
 overview_all_runs(my_runs,
                   plot = "total_runs",
@@ -56,7 +57,6 @@ How far have I run in each location?
 overview_all_runs(my_runs,
                   plot = "distance_per_location",
                   date_from = as.Date("2020-03-18"))
-
 ```
 
 How are these runs subdivided by run length?
@@ -85,7 +85,6 @@ overview_all_runs(my_runs,
                   plot = "pca_plot",
                   date_from = as.Date("2020-03-18"))
 
-
 ```
 
 You'll notice that stride length and cadence are important predictors of PC2 with PC1 dominated by run distance. It's possible the cluster of runs in the top right with short distance and short stride length were the runs I did with my girlfriend.
@@ -93,8 +92,6 @@ You'll notice that stride length and cadence are important predictors of PC2 wit
 ### Overview individual runs
 
 Next let's take a look at my individual runs over lockdown.
-
-c("distance", "pace", "dist_pace", "dist_time", "dist_cals", "cumulative_dist","pace_per_dist.gp","heart.rate_dist.gp","cadence_dist.gp","dist_time.bar")
 
 First let's track how far I have run since lockdown. How consistent did I stick to running?
 ```{r,warning=FALSE}
